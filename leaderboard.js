@@ -2,13 +2,21 @@ PlayersList = new Mongo.Collection('players');
 console.log("Hello World");
 if (Meteor.isClient) {
   Template.leaderboard.events({
-    'mouseover #player': function() {
-      console.log("You moused over a #player element");
+    'click .player': function() {
+      var playerId = this._id;
+      Session.set('selectedPlayer', playerId);
     }
   });
   Template.leaderboard.helpers({
     'player' : function(){
       return PlayersList.find()
+    },
+    'selectedClass' : function() {
+      var playerId = this._id;
+      var selectedPlayer = Session.get('selectedPlayer');
+      if (playerId === selectedPlayer) {
+        return "selected"
+      }
     },
     'otherHelperFunction' : function(){
       return "some other function"
