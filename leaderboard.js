@@ -32,6 +32,10 @@ if (Meteor.isClient) {
     'howMany' : function() {
       return PlayersList.find().count()
     },
+    'showSelectedPlayer' : function() {
+      var selectedPlayer = Session.get('selectedPlayer');
+      return PlayersList.findOne(selectedPlayer);
+    }
   });
 };
 if (Meteor.isServer) {
